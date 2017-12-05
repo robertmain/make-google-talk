@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Make google Talk
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css")
+    body
+        .container
+            .row
+                .col-xs-12
+                    h3 Enter Message
+                    form(action="speak", method="post")
+                        .form-group
+                            input(type="text", name="message", class="form-control", placholder="Type Something")
+                            input(type="submit", class="btn btn-lg")
+            .row
+                .col-xs-12
+                    h3 Message History
+                    table.table.table-bordered.table-striped
+                        tr
+                            th Message
+                            th Date
+                        each message in messages
+                            tr
+                                td= message.message
+                                td= moment(message.date).format('MMMM Do YYYY HH: mm')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment-with-locales.min.js")

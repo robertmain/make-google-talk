@@ -1,12 +1,14 @@
 const home = require('google-home-notifier');
 
-export default class GoogleHome {
+class Home {
     constructor(ip, voice = 'us') {
         this.home = home;
         this.home.ip(ip, voice);
     }
 
-    speak(message, callback){
+    speak(message, callback = () => {}){
         this.home.notify(message, callback);
     }
 }
+
+module.exports = Home;
