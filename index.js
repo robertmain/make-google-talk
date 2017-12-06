@@ -6,7 +6,7 @@ const config     = require('./package.json').config;
 const pug        = require('pug');
 const sanitizer  = require('express-sanitizer');
 
-let myHome = new Home(config.homeIp);
+let myHome = new Home(config.homeIP);
 
 app.use(express.urlencoded({extended: true}));
 

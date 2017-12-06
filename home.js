@@ -11,7 +11,7 @@ class Home {
     }
 
     speak(message, callback = () => {}){
-        this.history.push({message: message, date: new Date()});=
+        this.history.push({message: message, date: new Date()});
         this.home.notify(message, () => callback('Vocalised: ' + message));
     }
 
