@@ -2,27 +2,35 @@ const express    = require('express');
 const app        = express();
 const bodyParser = require('body-parser');
 const Home       = require('./home');
-const pkg        = require('./package.json');
+const config     = require('./package.json').config;
 const pug        = require('pug');
 const sanitizer  = require('express-sanitizer');
 
-let speechHistory = [];
-let myHome = new Home('192.168.1.160');
+let myHome = new Home(config.homeIp);
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 app.set('view engine', 'pug')
+
 app.locals.moment = require('moment');
 
 app.get('/', (req, res) => {
-    res.render('index', { messages : speechHistory })
+    res.render('partials/home', { messages : myHome.history })
 });
 
 app.post('/speak', (request, response) => {
-    let message = request.body.message;
-    myHome.speak(message, console.log);
-    speechHistory.push({ message: message, date: new Date() });
+    myHome.speak(request.body.message, (homeResponse) => {
+        console.log(homeResponse);
+    });
     response.redirect('/');
 });
 
-app.listen(pkg.config.port, () => console.log('Now listening in port ' + pkg.config.port));
+
+app.get('/readTweet/:id', (httpRequest, httpResponse) => {
+    myHome.readTweet(httpRequest.params.id, (homeResponse) => {
+        console.log(homeResponse);
+        httpResponse.render('layout', {messages: myHome.history});
+    });
+});
+
+app.listen(config.webServer.port, () => console.log('Now listening on port ' + config.webServer.port));

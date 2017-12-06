@@ -1,0 +1,7 @@
+extends ../layout.pug
+block content
+    h3 Enter Message
+    form(action="speak", method="post")
+        .form-group
+            input(type="text", name="message", class="form-control", placholder="Type Something")
+            input(type="submit", class="btn btn-lg")
